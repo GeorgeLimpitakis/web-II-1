@@ -10,6 +10,17 @@ servers:
   - url: https://api.di.ionio.gr/planner/v1
 
 paths:
+  /about:
+    get:
+      summary: About the API development group
+      description: Returns the list of development team members and their IDs.
+      responses:
+        '200':
+          description: Development team information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutResponse'
   /pois:
     get:
       summary: List / search POIs
@@ -296,6 +307,40 @@ paths:
 
 components:
   schemas:
+    AboutResponse:
+      type: object
+      properties:
+        team:
+          type: array
+          description: List of development group members.
+          items:
+            type: object
+            required:
+              - id
+              - name
+            properties:
+              id:
+                type: string
+                example: dev_001
+              name:
+                type: string
+                example: "Alice Papadopoulou"
+              role:
+                type: string
+                nullable: true
+                example: "Backend Developer"
+      example:
+        team:
+          - id: "dev_001"
+            name: "Alice Papadopoulou"
+            role: "Backend Engineer"
+          - id: "dev_002"
+            name: "Nikos Georgiou"
+            role: "GIS Specialist"
+          - id: "dev_003"
+            name: "Maria Kanelou"
+            role: "Frontend Developer"
+
     Poi:
       type: object
       required:
